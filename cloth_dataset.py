@@ -7,9 +7,9 @@ class ClothDataset(data.Dataset):
 
 	def __init__(self, args, phase = 'train'):
 		super(ClothDataset, self).__init__()
-		self.width = args.width
-		self.height = args.height
-		self.dataroot = "/work/CucchiaraYOOX2019/students/DressCode"
+		self.width = 192
+		self.height = 256
+		self.dataroot = r"C:\Users\Serena\PycharmProjects\clothes_classifier\classifier_dataset"
 
 		size = 0
 		category = ['dresses', 'upper_body', 'lower_body']
@@ -47,7 +47,7 @@ class ClothDataset(data.Dataset):
 		# Cloth mask
 		# apro la cloth mask creata con il grabcut (/work/cvcs_2022_group11/masks/.../cloth_masks/)
 		category = osp.split(dataroot)[-1]
-		c_mask_path = osp.join('/work/cvcs_2022_group11/masks', category, 'cloth_masks', c_name.replace('.jpg', '.png'))
+		c_mask_path = osp.join(self.dataroot, category, 'cloth_masks', c_name.replace('.jpg', '.png'))
 		c_mask = Image.open(c_mask_path)
 		c_mask = c_mask.resize((self.width, self.height))
 		# applico la cloth_mask al cloth cioè metto lo sfondo bianco (1)

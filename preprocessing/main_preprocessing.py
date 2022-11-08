@@ -1,25 +1,24 @@
-from grabcut import create_cloth_mask
+from cloth_mask import create_cloth_mask
 import os
 import os.path as osp
 from PIL import Image
 import matplotlib.pyplot as plt
 
 
-def main_preprocessing(source, dest):
+def main_preprocessing(dataroot):
 	category = ['dresses', 'upper_body', 'lower_body']
 
 	for c in category:
-		source_dir = osp.join(source, c)
-		dest_dir = osp.join(dest, c)
+		source = osp.join(dataroot, c)
+		dest = osp.join(dataroot, c)
 
-		for image in os.listdir(osp.join(source_dir, 'images')):
+		for image in os.listdir(osp.join(source, 'images')):
 			print(image)
 			if image[7] == '1':  # cloth image -> creo cloth mask
-				create_cloth_mask(image, source_dir, dest_dir)
+				create_cloth_mask(image, source, dest)
 
 
 if __name__ == '__main__':
-	source_d = "/work/CucchiaraYOOX2019/students/DressCode"
-	dest_d = "/work/cvcs_2022_group11/masks"
+	dataset_dir = r"C:\Users\Serena\PycharmProjects\clothes_classifier\classifier_dataset"
 
-	main_preprocessing(source_d, dest_d)
+	main_preprocessing(dataset_dir)

@@ -85,6 +85,12 @@ def create_cloth_mask(original_name, source, dest):
 
     # grabcut_mask è la mashcera binaria finale, la ottengo dalla mask modificata
     grabcut_mask = np.where((mask == cv.GC_PR_BGD) | (mask == cv.GC_BGD), 0, 1).astype("uint8")
+
+    kernel_erosion = np.ones((5, 5), np.uint8)
+
+    # Using cv2.erode() method
+    grabcut_mask = cv.erode(grabcut_mask, kernel_erosion)
+
     #plt.imshow(grabcut_mask), plt.colorbar(), plt.show()    # stampa maschera grabcut
     im_grabcut_mask = Image.fromarray(grabcut_mask)
     im_grabcut_mask.save(osp.join(dest, 'cloth_masks', original_name.replace('.jpg', '.png')))
