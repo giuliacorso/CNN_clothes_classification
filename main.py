@@ -1,6 +1,9 @@
+import torch
+
 from argument_parser import get_conf
 from cloth_dataset import ClothDataset
 from torch.utils.data import DataLoader
+from model import ClothModel
 
 
 def main_function(args):
@@ -12,6 +15,9 @@ def main_function(args):
     dataloader_test = DataLoader(dataset_test, batch_size=8, shuffle=True, num_workers=0)
 
     # modello
+    x = torch.ones((3,256,192))
+    model = ClothModel(args)
+    model(x)
 
 
 # Press the green button in the gutter to run the script.

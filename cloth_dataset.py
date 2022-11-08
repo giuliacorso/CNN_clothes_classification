@@ -6,10 +6,10 @@ import os.path as osp
 class ClothDataset(data.Dataset):
 
 	def __init__(self, args, phase = 'train'):
-		super(Dataset, self).__init__()
+		super(ClothDataset, self).__init__()
 		self.width = args.width
 		self.height = args.height
-		self.dataroot = args.dataroot
+		self.dataroot = "/work/CucchiaraYOOX2019/students/DressCode"
 
 		size = 0
 		category = ['dresses', 'upper_body', 'lower_body']
