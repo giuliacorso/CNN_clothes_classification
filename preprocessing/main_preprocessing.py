@@ -13,9 +13,10 @@ def main_preprocessing(dataroot):
 		dest = osp.join(dataroot, c)
 
 		for image in os.listdir(osp.join(source, 'images')):
-			print(image)
-			if image[7] == '1':  # cloth image -> creo cloth mask
-				create_cloth_mask(image, source, dest)
+			#print(image)
+			create_cloth_mask(image, source, dest)
+
+		print("HO FINITO")
 
 
 if __name__ == '__main__':

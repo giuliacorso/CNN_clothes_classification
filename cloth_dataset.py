@@ -20,10 +20,11 @@ class ClothDataset(data.Dataset):
 			if phase == 'train':
 				filename = osp.join(dataroot, 'train_pairs.txt')
 			else:
-				filename = osp.join(dataroot, 'test_pairs_paired.txt')
+				filename = osp.join(dataroot, 'test_pairs.txt')
 			with open(filename, 'r') as f:
-				size += len(f.readlines())
-				for line in f.readlines():
+				lines = f.readlines()
+				size += len(lines)
+				for line in lines:
 					_, c_name = line.strip().split()
 					cloth_names.append(c_name)
 					dataroot_names.append(dataroot)

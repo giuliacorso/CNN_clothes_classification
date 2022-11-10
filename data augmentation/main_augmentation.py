@@ -8,12 +8,23 @@ if __name__ == '__main__':
 
 	category = ['dresses', 'upper_body', 'lower_body']
 
-	augment_image(osp.join(dataroot, 'dresses'), '053700_1.jpg')
-
 	for c in category:
+		print(c)
+		print("Train")
 		d = osp.join(dataroot, c)
+		filename = osp.join(d, 'train_pairs.txt')
+		with open(filename, 'r') as f:
+			lines = f.readlines()
 
-		for image in os.listdir(osp.join(d, 'images')):
-			print(image)
-			if image[7] == '1':
-				augment_image(d, image)
+		for line in lines:
+			_, im_name = line.strip().split()
+			augment_image(d, im_name, 'train')
+
+		print("Test")
+		filename = osp.join(d, 'test_pairs.txt')
+		with open(filename, 'r') as f:
+			lines = f.readlines()
+
+		for line in lines:
+			_, im_name = line.strip().split()
+			augment_image(d, im_name, 'test')
