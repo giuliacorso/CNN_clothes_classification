@@ -87,4 +87,4 @@ def augment_image(dataroot, im_name, phase):
 			filename = osp.join(dataroot, 'augmented_test.txt')
 
 		with open(filename, 'a') as file_object:
-			file_object.write(output_name + " " + output_name.replace('.jpg', '.png') + "\n")
+			file_object.write("null " + output_name + "\n")
