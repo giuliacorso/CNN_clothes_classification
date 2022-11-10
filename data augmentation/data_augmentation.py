@@ -49,24 +49,24 @@ def augment_image(dataroot, im_name, phase):
 			#print("\nFlip applied")
 			#plt.imshow(mod_image), plt.show()
 
-		# rotazione e scala
-		center = (96, 128)
-		angle = random.uniform(-45., 45.)
-		scale = random.uniform(1.00, 1.60)
-		#print("\nRotation with angle ", angle, " and scale ", scale)
-		rotate_matrix = cv2.getRotationMatrix2D(center=center, angle=angle, scale=scale)
-		mod_image = cv2.warpAffine(src=mod_image, M=rotate_matrix, dsize=(192, 256))
-		mod_mask = cv2.warpAffine(src=mod_mask, M=rotate_matrix, dsize=(192, 256))
-		#plt.imshow(mod_image), plt.show()
-
 		# traslazione
 		translation_matrix = np.array([
 			[1, 0, random.randint(-45, 45)],
 			[0, 1, random.randint(-60, 60)]
 		], dtype=np.float32)
-		#print("\nTranslation with matrix\n", translation_matrix)
+		# print("\nTranslation with matrix\n", translation_matrix)
 		mod_image = cv2.warpAffine(src=mod_image, M=translation_matrix, dsize=(192, 256))
 		mod_mask = cv2.warpAffine(src=mod_mask, M=translation_matrix, dsize=(192, 256))
+		# plt.imshow(mod_image), plt.show()
+
+		# rotazione e scala
+		center = (96, 128)
+		angle = random.uniform(-45., 45.)
+		scale = random.uniform(1.00, 1.40)
+		#print("\nRotation with angle ", angle, " and scale ", scale)
+		rotate_matrix = cv2.getRotationMatrix2D(center=center, angle=angle, scale=scale)
+		mod_image = cv2.warpAffine(src=mod_image, M=rotate_matrix, dsize=(192, 256))
+		mod_mask = cv2.warpAffine(src=mod_mask, M=rotate_matrix, dsize=(192, 256))
 		#plt.imshow(mod_image), plt.show()
 
 		# applico il background all'immagine trasformata
