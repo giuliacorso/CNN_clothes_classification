@@ -37,7 +37,7 @@ class ClothDataset(data.Dataset):
 				lines_augmented = f.readlines()
 				size += len(lines_augmented)
 				for line in lines_augmented:
-					c_name, _ = line.strip().split()
+					_, c_name = line.strip().split()
 					cloth_names.append(c_name)
 					dataroot_names.append(dataroot)
 
@@ -69,17 +69,6 @@ class ClothDataset(data.Dataset):
 		cloth = cloth.resize((self.width, self.height))
 		cloth = self.transform(cloth)
 
-		# Cloth mask
-		# apro la cloth mask creata con il grabcut
-		#category = osp.split(dataroot)[-1]
-
-		#c_mask_path = osp.join(self.dataroot, category, 'cloth_masks', c_name.replace('.jpg', '.png'))
-		#c_mask = Image.open(c_mask_path)
-		#c_mask = c_mask.resize((self.width, self.height))
-
-		# applico la cloth_mask al cloth cioè metto lo sfondo bianco (1)
-		#cloth[c_mask.repeat(3, 1, 1) == 0.] = 1.
-
 		label_name = dataroot.split('\\')[-1]
 		if label_name == 'dresses':
 			label = torch.tensor([0])
@@ -87,11 +76,5 @@ class ClothDataset(data.Dataset):
 			label = torch.tensor([1])
 		if label_name == 'lower_body':
 			label = torch.tensor([2])
-
-		#result = {
-		#	"cloth_image" : cloth,
-		#	"cloth_mask" : c_mask,
-		#	"label" : label
-		#}
 
 		return cloth, label

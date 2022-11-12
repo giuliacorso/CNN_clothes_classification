@@ -23,12 +23,13 @@ def augment_image(dataroot, im_name, phase):
 	bg_path = r"C:\Users\giuli\OneDrive - Unimore\magistrale\II anno\school in ai\progetto\classifier_dataset\backgrounds"
 	backgrounds = [bg for bg in os.listdir(bg_path)]
 
-	for i in range(2):
+	for i in range(4):
 		# apro un background a caso
 		index = random.randint(0, len(backgrounds) - 1)
 		#print("\nBackground ", osp.join(bg_path, backgrounds[index]))
 		background = cv2.imread(osp.join(bg_path, backgrounds.pop(index)))
 		background = cv2.resize(background, (192, 256))
+		background = cv2.cvtColor(background, cv2.COLOR_RGB2BGR)
 
 		# applico una prospettiva a caso
 		input_pts = np.float32([[0, 0], [191, 0], [0, 255], [191, 255]])

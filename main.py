@@ -1,6 +1,5 @@
-import numpy as np
 import torch
-from sklearn.metrics import classification_report
+import time
 
 from argument_parser import get_conf
 from cloth_dataset import ClothDataset
@@ -35,6 +34,8 @@ def train(args):
 
     print("[INFO] training the network...")
 
+    start_time = time.time()
+
     for e in range(epochs):
         model.train()
         total_train_loss = 0
@@ -63,15 +64,18 @@ def train(args):
         #print("[INFO] testing the network...")
 
         test_correct = 0
-        #with torch.no_grad():
-        for (images, labels) in dataloader_test:
-            labels = labels.reshape(8)
-            output = model(images)
-            test_correct += (output.argmax(1) == labels).type(torch.float).sum().item()
+        with torch.no_grad():
+            for (images, labels) in dataloader_test:
+                labels = labels.reshape(8)
+                output = model(images)
+                test_correct += (output.argmax(1) == labels).type(torch.float).sum().item()
 
         test_correct = test_correct / len(dataloader_test.dataset)
         print("Test accuracy: {:.4f}".format(test_correct))
 
+    end_time = time.time()
+    print("[INFO] total time taken to train the model: {:.2f}s".format(
+        end_time - start_time))
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
