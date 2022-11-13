@@ -6,6 +6,8 @@ from cloth_dataset import ClothDataset
 from torch.utils.data import DataLoader
 from model import ClothModel
 
+#prova
+
 def train(args):
 
     epochs = 10
