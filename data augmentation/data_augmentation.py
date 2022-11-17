@@ -20,7 +20,7 @@ def augment_image(dataroot, im_name, phase):
 
 	# estraggo i nomi di background
 	#bg_path = r"C:\Users\Serena\PycharmProjects\clothes_classifier\classifier_dataset\backgrounds"
-	bg_path = r"C:\Users\giuli\OneDrive - Unimore\magistrale\II anno\school in ai\progetto\classifier_dataset\backgrounds"
+	bg_path = r"C:\Users\giuli\OneDrive - Unimore\magistrale\II anno\school in ai\clothes_classifier\classifier_dataset\backgrounds"
 	backgrounds = [bg for bg in os.listdir(bg_path)]
 
 	for i in range(4):

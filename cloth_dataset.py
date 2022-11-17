@@ -12,7 +12,7 @@ class ClothDataset(data.Dataset):
 		self.width = 192
 		self.height = 256
 		#self.dataroot = r"C:\Users\Serena\PycharmProjects\clothes_classifier\classifier_dataset"
-		self.dataroot = r"C:\Users\giuli\OneDrive - Unimore\magistrale\II anno\school in ai\progetto\classifier_dataset"
+		self.dataroot = r"C:\Users\giuli\OneDrive - Unimore\magistrale\II anno\school in ai\clothes_classifier\classifier_dataset"
 
 		size = 0
 		category = ['dresses', 'upper_body', 'lower_body']
