@@ -4,8 +4,8 @@ import os.path as osp
 
 
 if __name__ == '__main__':
-	#dataroot = r"C:\Users\Serena\PycharmProjects\clothes_classifier\classifier_dataset"
-	dataroot = r"C:\Users\giuli\OneDrive - Unimore\magistrale\II anno\school in ai\clothes_classifier\classifier_dataset"
+	dataroot = r"C:\Users\Serena\PycharmProjects\clothes_classifier\classifier_dataset"
+	#dataroot = r"C:\Users\giuli\OneDrive - Unimore\magistrale\II anno\school in ai\progetto\classifier_dataset"
 
 	category = ['dresses', 'upper_body', 'lower_body']
 

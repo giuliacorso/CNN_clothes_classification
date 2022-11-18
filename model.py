@@ -1,14 +1,7 @@
-import matplotlib.pyplot as plt
-from PIL import Image
-from torch.optim.lr_scheduler import StepLR
+import torch
+from torch import nn
 import torch.nn.functional as F
 
-from matplotlib.path import Path
-import torch
-import os
-from torch import nn
-import numpy as np
-import cv2
 
 class ClothModel(nn.Module):
 	def __init__(self, args):
@@ -27,7 +20,6 @@ class ClothModel(nn.Module):
 		self.pool2 = nn.MaxPool2d(2, 2)
 		self.fc1 = nn.Linear(64 * 4 * 3, 100)
 		self.fc2 = nn.Linear(100, 3)
-
 
 	def forward(self, input):
 		output = F.relu(self.bn1(self.conv1(input)))

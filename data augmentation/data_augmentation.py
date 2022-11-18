@@ -19,8 +19,8 @@ def augment_image(dataroot, im_name, phase):
 	mask = cv2.resize(mask, (192, 256))
 
 	# estraggo i nomi di background
-	#bg_path = r"C:\Users\Serena\PycharmProjects\clothes_classifier\classifier_dataset\backgrounds"
-	bg_path = r"C:\Users\giuli\OneDrive - Unimore\magistrale\II anno\school in ai\clothes_classifier\classifier_dataset\backgrounds"
+	bg_path = r"C:\Users\Serena\PycharmProjects\clothes_classifier\classifier_dataset\backgrounds"
+	#bg_path = r"C:\Users\giuli\OneDrive - Unimore\magistrale\II anno\school in ai\progetto\classifier_dataset\backgrounds"
 	backgrounds = [bg for bg in os.listdir(bg_path)]
 
 	for i in range(4):
@@ -78,15 +78,15 @@ def augment_image(dataroot, im_name, phase):
 		# salvo l'immagine e la mask
 		output_name = im_name.split('.')[0] + "_" + str(i) + ".jpg"
 		output = Image.fromarray(output)
-		output.save(osp.join(dataroot, 'augmented_images', output_name))
+		output.save(osp.join(dataroot, 'images', output_name))
 		out_mask = Image.fromarray(mod_mask)
-		out_mask.save(osp.join(dataroot, 'augmented_masks', output_name.replace('.jpg', '.png')))
+		out_mask.save(osp.join(dataroot, 'cloth_masks', output_name.replace('.jpg', '.png')))
 
 		# aggiorno i file txt
 		if phase == 'train':
-			filename = osp.join(dataroot, 'augmented_train.txt')
+			filename = osp.join(dataroot, 'train.txt')
 		else:
-			filename = osp.join(dataroot, 'augmented_test.txt')
+			filename = osp.join(dataroot, 'test.txt')
 
 		with open(filename, 'a') as file_object:
-			file_object.write("null " + output_name + "\n")
+			file_object.write(output_name + "\n")
