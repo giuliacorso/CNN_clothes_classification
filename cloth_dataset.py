@@ -7,12 +7,15 @@ import torchvision.transforms as transforms
 
 
 class ClothDataset(data.Dataset):
-	def __init__(self, phase='train'):
+	def __init__(self, args, phase='train'):
 		super(ClothDataset, self).__init__()
 		self.width = 192
 		self.height = 256
-		self.dataroot = r"C:\Users\Serena\PycharmProjects\clothes_classifier\classifier_dataset"
-		#self.dataroot = r"C:\Users\giuli\OneDrive - Unimore\magistrale\II anno\school in ai\progetto\classifier_dataset"
+		self.dataroot = args.dataroot
+		self.transform = transforms.Compose([
+			transforms.ToTensor(),
+			transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+		])
 
 		size = 0
 		category = ['dresses', 'upper_body', 'lower_body']
@@ -35,15 +38,8 @@ class ClothDataset(data.Dataset):
 					dataroot_names.append(dataroot)
 
 		self.dataroot_names = dataroot_names
-		#print(len(dataroot_names))
 		self.cloth_names = cloth_names
-		#print(len(cloth_names))
 		self.size = size
-
-		self.transform = transforms.Compose([
-			transforms.ToTensor(),
-			transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
-		])
 
 	def __len__(self):
 		return self.size
@@ -61,9 +57,9 @@ class ClothDataset(data.Dataset):
 		label_name = dataroot.split('\\')[-1]
 		if label_name == 'dresses':
 			label = torch.tensor([0])
-		if label_name == 'upper_body':
+		elif label_name == 'upper_body':
 			label = torch.tensor([1])
-		if label_name == 'lower_body':
+		else:
 			label = torch.tensor([2])
 
 		return cloth, label

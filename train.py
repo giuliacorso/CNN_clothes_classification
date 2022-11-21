@@ -22,19 +22,20 @@ def eval_acc(model, dataloader):
 
 	return correct / total
 
+
 def train_function(args):
-	epochs = 10
-	batch_size = 8
+	epochs = args.epochs
+	batch_size = args.batch_size
 	lr = 0.001
 
 	# Dataset e Dataloader
-	dataset_train = ClothDataset(phase='train')
+	dataset_train = ClothDataset(args, phase='train')
 	dataloader_train = DataLoader(dataset_train, batch_size=batch_size, shuffle=True, num_workers=0)
 
-	dataset_test = ClothDataset(phase='test')
+	dataset_test = ClothDataset(args, phase='test')
 	dataloader_test = DataLoader(dataset_test, batch_size=batch_size, shuffle=True, num_workers=0)
 
-	model = ClothModel(args)
+	model = ClothModel()
 	optimizer = torch.optim.Adam(model.parameters(), lr=lr)
 	criterion = torch.nn.CrossEntropyLoss()
 	train_steps = len(dataloader_train.dataset) // batch_size
@@ -59,7 +60,7 @@ def train_function(args):
 			total_train_loss += loss.item()
 
 			if j % 500 == 0:
-				print("Epoch ", e, ", step ",  j * 8)
+				print("Epoch ", e + 1, ", step ",  j * 8)
 				train_acc = eval_acc(model, dataloader_train)
 				test_acc = eval_acc(model, dataloader_test)
 				accuracy_test.append(test_acc)
@@ -82,13 +83,13 @@ def train_function(args):
 	end_time = time.time()
 	print("[INFO] total time taken to train the model: {:.2f}s".format(
 		end_time - start_time))
-	torch.save(model.state_dict(), r"C:\Users\Serena\PycharmProjects\clothes_classifier\ClothClassifier.bin")
-	print(accuracy_train, accuracy_test)
+	torch.save(model.state_dict(), args.chackpoint)
 
-	plt.plot(np.linspace(1, epochs, epochs), accuracy_train, label='train accuracy')
-	plt.plot(np.linspace(1, epochs, epochs), accuracy_test, label='test accuracy')
+	plt.plot(np.linspace(1, epochs, epochs*4), accuracy_train, label='train accuracy')
+	plt.plot(np.linspace(1, epochs, epochs*4), accuracy_test, label='test accuracy')
 	plt.title('training and testing accuracy')
 	plt.xlabel('epochs')
 	plt.ylabel('accuracy')
 	plt.legend()
+	plt.savefig(osp.join(args.result_dir, 'accuracy_graphic.jpg'))
 	plt.show()

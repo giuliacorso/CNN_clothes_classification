@@ -1,10 +1,12 @@
 from data_augmentation import augment_image
 import os
 import os.path as osp
+from argument_parser import get_conf
 
 
 if __name__ == '__main__':
-	dataroot = r"C:\Users\Serena\PycharmProjects\clothes_classifier\classifier_dataset"
+	args = get_conf()
+	dataroot = args.dataroot
 	#dataroot = r"C:\Users\giuli\OneDrive - Unimore\magistrale\II anno\school in ai\progetto\classifier_dataset"
 
 	category = ['dresses', 'upper_body', 'lower_body']
@@ -13,19 +15,19 @@ if __name__ == '__main__':
 		print(c)
 		print("Train")
 		d = osp.join(dataroot, c)
-		filename = osp.join(d, 'train_pairs.txt')
+		filename = osp.join(d, 'train.txt')
 		with open(filename, 'r') as f:
 			lines = f.readlines()
 
 		for line in lines:
-			_, im_name = line.strip().split()
-			augment_image(d, im_name, 'train')
+			im_name = line.strip()
+			augment_image(args, d, im_name, 'train')
 
 		print("Test")
-		filename = osp.join(d, 'test_pairs.txt')
+		filename = osp.join(d, 'test.txt')
 		with open(filename, 'r') as f:
 			lines = f.readlines()
 
 		for line in lines:
-			_, im_name = line.strip().split()
-			augment_image(d, im_name, 'test')
+			im_name = line.strip()
+			augment_image(args, d, im_name, 'test')

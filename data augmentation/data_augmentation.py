@@ -7,7 +7,7 @@ import numpy as np
 from PIL import Image
 
 
-def augment_image(dataroot, im_name, phase):
+def augment_image(args, dataroot, im_name, phase):
 	# apro l'immagine
 	image = cv2.imread(osp.join(dataroot, 'images', im_name))
 	image = cv2.resize(image, (192, 256))
@@ -19,8 +19,7 @@ def augment_image(dataroot, im_name, phase):
 	mask = cv2.resize(mask, (192, 256))
 
 	# estraggo i nomi di background
-	bg_path = r"C:\Users\Serena\PycharmProjects\clothes_classifier\classifier_dataset\backgrounds"
-	#bg_path = r"C:\Users\giuli\OneDrive - Unimore\magistrale\II anno\school in ai\progetto\classifier_dataset\backgrounds"
+	bg_path = args.backgrounds
 	backgrounds = [bg for bg in os.listdir(bg_path)]
 
 	for i in range(4):

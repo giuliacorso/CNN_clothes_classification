@@ -9,7 +9,6 @@ from PIL import Image
 def create_cloth_mask(original_name, source, dest):
     original_image = cv.imread(osp.join(source, 'images', original_name))
     original_image = cv.cvtColor(original_image, cv.COLOR_BGR2RGB)
-    # plt.imshow(original_image), plt.colorbar(),plt.show()
 
     # il grabcut funziona meglio con il blurring, i contorni sono più smooth
     blurred_image = cv.GaussianBlur(original_image, (5, 5), 0)
@@ -27,7 +26,6 @@ def create_cloth_mask(original_name, source, dest):
     segmented_image = np.where(r != r0, 0, 1)
     segmented_image = np.where(g != g0, 0, segmented_image)
     segmented_image = np.where(b != b0, 0, segmented_image)
-    # plt.imshow(segmented_image), plt.colorbar(), plt.show()       # stampa immagine segmentata
 
     # CREAZIONE MASK
     # inizializzo la mask a BGD (valore 0)
@@ -37,7 +35,6 @@ def create_cloth_mask(original_name, source, dest):
     # GESTIONE IMMAGINI PROBLEMATICHE
     # calcolo la percentuale di pixel di background
     back_perc = (segmented_image == 1).sum() / (original_image.shape[0] * original_image.shape[1])
-    # print(back_perc)
 
     # se la % è abbastanza alta significa che la segmentazione funziona bene,
     # setto i pixel segmentati a 0 come probabile foreground PR_FGD (valore 3)
@@ -52,7 +49,6 @@ def create_cloth_mask(original_name, source, dest):
         if th[0, 0] == 0:
             th = np.where(th == 0, 255, 0)
         mask[th == 0] = cv.GC_FGD
-    # plt.imshow(mask), plt.colorbar(),plt.show()    # stampa maschera
 
     # GRAB CUT: definisco elementi di base per il grabcut
     # Definisco il boundary rectangle che contiene il foreground object
@@ -90,6 +86,6 @@ def create_cloth_mask(original_name, source, dest):
     kernel_erosion = np.ones((6, 6), np.uint8)
     grabcut_mask = cv.erode(grabcut_mask, kernel_erosion)
 
-    #plt.imshow(grabcut_mask), plt.colorbar(), plt.show()    # stampa maschera grabcut
+    # Salvataggio della maschera creata
     im_grabcut_mask = Image.fromarray(grabcut_mask)
     im_grabcut_mask.save(osp.join(dest, 'cloth_masks', original_name.replace('.jpg', '.png')))
