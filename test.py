@@ -68,4 +68,3 @@ def test_real_image(args):
 	output = model(real_image)
 	print(output)
 	print("Label predetta: ", classes[output.argmax()])
-
