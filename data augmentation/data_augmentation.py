@@ -12,7 +12,6 @@ def augment_image(args, dataroot, im_name, phase):
 	image = cv2.imread(osp.join(dataroot, 'images', im_name))
 	image = cv2.resize(image, (192, 256))
 	image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
-	#plt.imshow(image), plt.show()
 
 	# apro la maschera
 	mask = cv2.imread(osp.join(dataroot, 'cloth_masks', im_name.replace('.jpg', '.png')))
@@ -23,9 +22,8 @@ def augment_image(args, dataroot, im_name, phase):
 	backgrounds = [bg for bg in os.listdir(bg_path)]
 
 	for i in range(4):
-		# apro un background a caso
+		# apro un background randomico
 		index = random.randint(0, len(backgrounds) - 1)
-		#print("\nBackground ", osp.join(bg_path, backgrounds[index]))
 		background = cv2.imread(osp.join(bg_path, backgrounds.pop(index)))
 		background = cv2.resize(background, (192, 256))
 		background = cv2.cvtColor(background, cv2.COLOR_RGB2BGR)

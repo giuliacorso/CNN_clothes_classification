@@ -15,11 +15,12 @@ import pandas as pd
 import torchvision.transforms as transforms
 import cv2
 from PIL import ImageOps
+import os.path as osp
 
 
-def create_confusion_matrix(dataloader_test):
+def create_confusion_matrix(args, dataloader_test):
 	model = ClothModel()
-	model.load_state_dict(torch.load(r"C:\Users\Serena\PycharmProjects\clothes_classifier\ClothClassifier.bin"))
+	model.load_state_dict(torch.load(args.checkpoint))
 	model.eval()
 
 	y_pred = []
@@ -40,7 +41,7 @@ def create_confusion_matrix(dataloader_test):
 
 	# Build confusion matrix
 	cf_matrix = confusion_matrix(y_true, y_pred, normalize='true')
-	df_cm = pd.DataFrame(cf_matrix / np.sum(cf_matrix, axis=0), index=[i for i in classes], columns=[i for i in classes])
+	df_cm = pd.DataFrame(cf_matrix / np.sum(cf_matrix, axis=1), index=[i for i in classes], columns=[i for i in classes])
 	plt.figure(figsize=(12, 7))
 	sn.heatmap(df_cm, annot=True)
 	plt.savefig(osp.join(args.result_dir, 'confusion_matrix.jpg'))

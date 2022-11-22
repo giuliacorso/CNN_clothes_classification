@@ -11,8 +11,6 @@ if __name__ == '__main__':
 	category = ['dresses', 'upper_body', 'lower_body']
 
 	for c in category:
-		print(c)
-		print("Train")
 		d = osp.join(dataroot, c)
 		filename = osp.join(d, 'train.txt')
 		with open(filename, 'r') as f:
@@ -22,7 +20,6 @@ if __name__ == '__main__':
 			im_name = line.strip()
 			augment_image(args, d, im_name, 'train')
 
-		print("Test")
 		filename = osp.join(d, 'test.txt')
 		with open(filename, 'r') as f:
 			lines = f.readlines()

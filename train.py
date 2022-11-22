@@ -50,7 +50,6 @@ def train_function(args):
 		model.train()
 		total_train_loss = 0
 		for j, (images, labels) in enumerate(dataloader_train):
-			# (images, labels) = (images.to(device), labels.to(device))
 			labels = labels.reshape(batch_size)
 			optimizer.zero_grad()
 			output = model(images)
@@ -59,14 +58,14 @@ def train_function(args):
 			optimizer.step()
 			total_train_loss += loss.item()
 
-			if j % 500 == 0:
-				print("Epoch ", e + 1, ", step ",  j * 8)
-				train_acc = eval_acc(model, dataloader_train)
-				test_acc = eval_acc(model, dataloader_test)
-				accuracy_test.append(test_acc)
-				accuracy_train.append(train_acc)
-				print("Accuracy Train: ", train_acc)
-				print("Accuracy Test:  ", test_acc)
+			#if j % 500 == 0:
+			#	print("Epoch ", e + 1, ", step ",  j * 8)
+			#	train_acc = eval_acc(model, dataloader_train)
+			#	test_acc = eval_acc(model, dataloader_test)
+			#	accuracy_test.append(test_acc)
+			#	accuracy_train.append(train_acc)
+			#	print("Accuracy Train: ", train_acc)
+			#	print("Accuracy Test:  ", test_acc)
 
 		avg_train_loss = total_train_loss / train_steps
 		train_acc = eval_acc(model, dataloader_train)
@@ -85,8 +84,8 @@ def train_function(args):
 		end_time - start_time))
 	torch.save(model.state_dict(), args.chackpoint)
 
-	plt.plot(np.linspace(1, epochs, epochs*4), accuracy_train, label='train accuracy')
-	plt.plot(np.linspace(1, epochs, epochs*4), accuracy_test, label='test accuracy')
+	plt.plot(np.linspace(1, epochs, epochs), accuracy_train, label='train accuracy')
+	plt.plot(np.linspace(1, epochs, epochs), accuracy_test, label='test accuracy')
 	plt.title('training and testing accuracy')
 	plt.xlabel('epochs')
 	plt.ylabel('accuracy')
