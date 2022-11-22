@@ -9,6 +9,8 @@ from cloth_dataset import ClothDataset
 from torch.utils.data import DataLoader
 from model import ClothModel
 
+import os.path as osp
+
 
 def eval_acc(model, dataloader):
 	total = len(dataloader.dataset)
