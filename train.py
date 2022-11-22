@@ -82,7 +82,7 @@ def train_function(args):
 	end_time = time.time()
 	print("[INFO] total time taken to train the model: {:.2f}s".format(
 		end_time - start_time))
-	torch.save(model.state_dict(), args.chackpoint)
+	torch.save(model.state_dict(), args.checkpoint)
 
 	plt.plot(np.linspace(1, epochs, epochs), accuracy_train, label='train accuracy')
 	plt.plot(np.linspace(1, epochs, epochs), accuracy_test, label='test accuracy')
