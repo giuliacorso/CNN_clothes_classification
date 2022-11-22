@@ -1,6 +1,7 @@
 import numpy as np
 import torch
 import time
+import os.path as osp
 
 from matplotlib import pyplot as plt
 
@@ -8,8 +9,6 @@ from argument_parser import get_conf
 from cloth_dataset import ClothDataset
 from torch.utils.data import DataLoader
 from model import ClothModel
-
-import os.path as osp
 
 
 def eval_acc(model, dataloader):
