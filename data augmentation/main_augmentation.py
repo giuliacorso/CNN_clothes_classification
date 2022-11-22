@@ -7,7 +7,6 @@ from argument_parser import get_conf
 if __name__ == '__main__':
 	args = get_conf()
 	dataroot = args.dataroot
-	#dataroot = r"C:\Users\giuli\OneDrive - Unimore\magistrale\II anno\school in ai\progetto\classifier_dataset"
 
 	category = ['dresses', 'upper_body', 'lower_body']
 
